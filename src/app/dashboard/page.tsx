@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { subscribeToAlerts } from '@/lib/firestore';
-import { StockData, User, AlertSettings } from '@/types';
+import { StockData, AlertSettings } from '@/types';
 import { getStockQuote } from '@/lib/stockApi';
 import StockChart from '@/components/stocks/StockChart';
 import StockList from '@/components/stocks/StockList';

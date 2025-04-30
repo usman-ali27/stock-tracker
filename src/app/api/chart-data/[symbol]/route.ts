@@ -4,10 +4,12 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { symbol: string } } // Keep this for now, but we'll adjust if needed
+  context: { params: Promise<{ symbol: string }> } // Update the type to reflect that params is a Promise
 ) {
   try {
-    const { symbol } = context.params;
+    // Await the params to get the symbol
+    const { symbol } = await context.params;
+
     const FINNHUB_API_KEY = process.env.FINNHUB_API_KEY;
 
     if (!FINNHUB_API_KEY) {

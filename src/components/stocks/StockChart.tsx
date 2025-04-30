@@ -82,7 +82,7 @@ const StockChart = ({ symbol, data }: StockChartProps) => {
         ticks: {
           color: '#A1A1AA',
           maxTicksLimit: 6,
-          callback: function (this: Scale<CoreScaleOptions>, tickValue: string | number, index: number, ticks: Tick[]) {
+          callback: function (this: Scale<CoreScaleOptions>, tickValue: string) {
             const labelIndex = typeof tickValue === 'number' ? tickValue : parseInt(tickValue, 10);
             if (data.labels[labelIndex]) {
               const date = new Date(data.labels[labelIndex]);
@@ -96,7 +96,7 @@ const StockChart = ({ symbol, data }: StockChartProps) => {
         grid: { display: false },
         ticks: {
           color: '#A1A1AA',
-          callback: function (this: Scale<CoreScaleOptions>, tickValue: string | number, index: number, ticks: Tick[]) {
+          callback: function (this: Scale<CoreScaleOptions>, tickValue: string) {
             const value = typeof tickValue === 'string' ? parseFloat(tickValue) : tickValue;
             return `$${value.toFixed(2)}`;
           },
