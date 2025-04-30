@@ -4,14 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build": "next build",
-    "postbuild": "netlify-next"
+    "lint-functions": "cd functions && npm run lint"
   },
   "dependencies": {
     "@firebase/auth": "1.10.1",
-    "@netlify/plugin-nextjs": "5.10.7",
     "axios": "1.9.0",
     "chart.js": "4.4.9",
     "firebase": "11.6.1",
