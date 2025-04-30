@@ -9,16 +9,20 @@ export default function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false); // State to track loading status
   const { register } = useAuth();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true); // Start loading
     try {
       await register(email, password, name);
       router.push('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Failed to register');
+    } finally {
+      setLoading(false); // End loading
     }
   };
 
@@ -70,9 +74,10 @@ export default function RegisterForm() {
       </div>
       <button
         type="submit"
-        className="w-full bg-gradient-to-r from-cyan-600 to-purple-600 text-white py-2 rounded-lg hover:from-cyan-700 hover:to-purple-700 transition duration-200"
+        className={`w-full py-2 rounded-lg transition duration-200 ${loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-700 hover:to-purple-700'} text-white cursor-pointer`}
+        disabled={loading} // Disable the button while loading
       >
-        Register
+        {loading ? 'Loading...' : 'Register'}
       </button>
     </form>
   );

@@ -8,17 +8,25 @@ export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false); // State to track loading status
   const { login } = useAuth();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true); // Start loading
     try {
       await login(email, password);
       router.push('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Failed to login');
+    } finally {
+      setLoading(false); // End loading
     }
+  };
+
+  const handleSignupRedirect = () => {
+    router.push('/signup');
   };
 
   return (
@@ -58,20 +66,20 @@ export default function LoginForm() {
         </div>
         <button
           type="submit"
-          className="w-full bg-cyan-600 text-white py-2 rounded-lg hover:bg-cyan-700 transition duration-200"
+          className={`w-full py-2 rounded-lg transition duration-200 ${loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-cyan-600 hover:bg-cyan-700'} text-white cursor-pointer`}
+          disabled={loading} // Disable the button while loading
         >
-          Login
+          {loading ? 'Loading...' : 'Login'}
         </button>
-
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
-            <a href="/register" className="text-indigo-600 hover:text-indigo-800 font-medium">
-              Sign up
-            </a>
-          </p>
-        </div>
       </form>
+      <div className="mt-6 text-center">
+        <p className="text-sm text-gray-600">
+          Don't have an account?{' '}
+          <a href="/register" className="text-indigo-600 hover:text-indigo-800 font-medium">
+            Sign up
+          </a>
+        </p>
+      </div>
     </div>
   );
 }
