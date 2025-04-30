@@ -16,16 +16,17 @@ export default function StockList({
   return (
     <div className="space-y-2">
       {stocks.map((stock) => (
+        // Use stock.symbol ?? 'UNKNOWN' to provide a fallback
         <button
-          key={stock.symbol}
+          key={stock.symbol ?? 'UNKNOWN'}
           className={`w-full text-left p-4 rounded-lg transition ${stock.symbol === selectedSymbol
-              ? 'bg-cyan-700 text-white'
-              : 'bg-gray-700 hover:bg-gray-600'
+            ? 'bg-cyan-700 text-white'
+            : 'bg-gray-700 hover:bg-gray-600'
             }`}
-          onClick={() => onSelectStock(stock.symbol)}
+          onClick={() => onSelectStock(stock.symbol ?? 'UNKNOWN')}
         >
           <div className="flex justify-between">
-            <span className="text-lg font-semibold">{stock.symbol}</span>
+            <span className="text-lg font-semibold">{stock.symbol ?? 'N/A'}</span>
             <span
               className={`text-sm ${stock.change && stock.change >= 0 ? 'text-green-500' : 'text-red-500'}`}
             >

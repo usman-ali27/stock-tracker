@@ -5,19 +5,19 @@ export interface StockData {
   price?: number | null | undefined;
   percentChange?: number | null;
   changePercent?: number | null;
+  change?: number | null; // Add change property
   lastUpdate?: number; // UNIX ms
   volume?: number;
 }
 
-
 export interface AlertSettings {
-  id: string; // Make id required
+  id?: string;
   userId: string;
   symbol: string;
   threshold: number;
   isAbove: boolean;
   isActive: boolean;
-  createdAt?:any;
+  createdAt?: Date;
 }
 
 export interface UserStats {

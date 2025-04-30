@@ -1,8 +1,11 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(request: Request, context: { params: { symbol: string } }) {
+export async function GET(
+  request: NextRequest,
+  context: { params: { symbol: string } } // Keep this for now, but we'll adjust if needed
+) {
   try {
     const { symbol } = context.params;
     const FINNHUB_API_KEY = process.env.FINNHUB_API_KEY;
